@@ -6,8 +6,9 @@ Ce dépôt contient la structure initiale du projet **AVWAP Bot**, un assistant 
 
 - `README.md` : Présentation du projet et de sa structure.
 - `specs/architecture_bot_avwap.md` : Documentation d'architecture et d'objectifs fonctionnels du bot.
+- `specs/avwap_execution_module_spec.md` : Spécification détaillée du module d'exécution semi-automatisé.
 - `prompts/prompt_maitre_pro_avwap.md` : Prompt principal pour orchestrer les interactions du bot.
-- `src/` : Répertoire réservé au futur code NinjaTrader (C#).
+- `src/` : Répertoire réservé au code NinjaTrader (C#).
 
 ## Prochaines étapes
 
