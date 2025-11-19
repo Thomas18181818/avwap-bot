@@ -28,6 +28,7 @@ namespace NinjaTrader.NinjaScript.Indicators
         private Series<double> avwapSeries;
         private DateTime anchorTime = Core.Globals.MinDate;
         private bool anchorFound;
+        private int anchorMoveVersion;
 
         /// <summary>
         /// Méthode appelée lors des changements d'état de l'indicateur (initialisation, chargement, etc.).
@@ -43,6 +44,9 @@ namespace NinjaTrader.NinjaScript.Indicators
                     IsOverlay = true;
                     IsSuspendedWhileInactive = false;
                     AddPlot(Brushes.CornflowerBlue, "AVWAP");
+                    anchorTime = Core.Globals.MinDate;
+                    anchorFound = false;
+                    anchorMoveVersion = 0;
                     break;
 
                 case State.DataLoaded:
@@ -106,6 +110,7 @@ namespace NinjaTrader.NinjaScript.Indicators
                 return false;
 
             bool localAnchorFound = false;
+            bool anchorChanged = false;
 
             foreach (DrawingTool drawingTool in DrawObjects)
             {
@@ -117,6 +122,7 @@ namespace NinjaTrader.NinjaScript.Indicators
                     if (foundAnchorTime != anchorTime)
                     {
                         anchorTime = foundAnchorTime;
+                        anchorChanged = true;
                     }
 
                     localAnchorFound = true;
@@ -125,6 +131,9 @@ namespace NinjaTrader.NinjaScript.Indicators
             }
 
             anchorFound = localAnchorFound;
+            if (anchorFound && anchorChanged)
+                anchorMoveVersion++;
+
             return anchorFound;
         }
 
@@ -158,6 +167,16 @@ namespace NinjaTrader.NinjaScript.Indicators
         public Series<double> AVWAPSeries
         {
             get { return avwapSeries; }
+        }
+
+        /// <summary>
+        /// Incrémente à chaque déplacement d'ancre pour permettre un filtrage des entrées.
+        /// </summary>
+        [Browsable(false)]
+        [XmlIgnore]
+        public int AnchorMoveVersion
+        {
+            get { return anchorMoveVersion; }
         }
         #endregion
     }
