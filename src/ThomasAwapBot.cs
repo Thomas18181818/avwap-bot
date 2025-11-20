@@ -11,6 +11,9 @@ using NinjaTrader.NinjaScript.Indicators;
 
 namespace NinjaTrader.NinjaScript.Strategies
 {
+    /// <summary>
+    /// Stratégie AVWAP en mode unmanaged avec suivi des exécutions compte et filtres directionnels.
+    /// </summary>
     public class ThomasAwapBot : Strategy
     {
         private const string EntrySignalName = "AVWAPLong";
